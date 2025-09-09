@@ -14,9 +14,9 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { email, senha, role } = req.body;
+  const { nome, email, senha, role } = req.body;
   const hashedSenha = await bcrypt.hash(senha, 10);
-  const user = new User({ email, senha: hashedSenha, role: role || 'morador' });
+  const user = new User({ nome, email, senha: hashedSenha, role: role || 'morador' });
   await user.save();
   const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET);
   res.json({ token, role: user.role });
