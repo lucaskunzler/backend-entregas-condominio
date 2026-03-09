@@ -37,23 +37,33 @@ npx nodemon server.js
 
 O servidor estará disponível em [http://localhost:3000](http://localhost:3000).
 
-## Rotas Principais
+## Endpoints
 
-- **POST /api/login**  
-  Body: `{ "email": "...", "senha": "..." }`  
-  Retorna: `{ "token": "...", "role": "porteiro|morador" }`
+> 🔒 = requer `Authorization: Bearer <token>`
 
-- **POST /api/register**  
-  Body: `{ "email": "...", "senha": "...", "role": "morador|porteiro" }`  
-  Retorna: `{ "token": "...", "role": "..." }`
+### Auth
+| Método | Rota | Body |
+|--------|------|------|
+| POST | `/api/login` | `{ email, senha }` |
+| POST | `/api/register` | `{ email, senha, role: "morador\|porteiro" }` |
 
-- **GET /api/dashboard/porteiro**  
-  Header: `Authorization: Bearer <token>`  
-  Retorna dados do painel do porteiro
+### Dashboard 🔒
+| Método | Rota |
+|--------|------|
+| GET | `/api/dashboard/porteiro` |
+| GET | `/api/dashboard/morador` |
 
-- **GET /api/dashboard/morador**  
-  Header: `Authorization: Bearer <token>`  
-  Retorna dados do painel do morador
+### Entregas
+| Método | Rota | Auth |
+|--------|------|------|
+| POST | `/api/deliveries` | — |
+| GET | `/api/deliveries` | — |
+| GET | `/api/deliveries/my-deliveries` | 🔒 |
+
+### Usuários
+| Método | Rota |
+|--------|------|
+| GET | `/api/users/residents` |
 
 ## Observações
 
