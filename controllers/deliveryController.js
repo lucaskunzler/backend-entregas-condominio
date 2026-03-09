@@ -56,7 +56,30 @@ const getDeliveriesByResident = async (req, res) => {
 };
 
 
-module.exports = { createDelivery, getDeliveries, getDeliveriesByResident };
+const confirmDelivery = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const residentId = req.user.id;
+
+        const delivery = await Delivery.findOneAndUpdate(
+            { _id: id, resident: residentId },
+            { status: 'entregue' },
+            { new: true }
+        );
+
+        if (!delivery) {
+            return res.status(404).json({ error: 'Entrega não encontrada' });
+        }
+
+        console.log(`[Delivery] Delivery ${id} confirmed by resident ${residentId}`);
+        res.json(delivery);
+    } catch (error) {
+        console.error('[Delivery] Error confirming delivery:', error.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+module.exports = { createDelivery, getDeliveries, getDeliveriesByResident, confirmDelivery };
 
 
 

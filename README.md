@@ -59,6 +59,7 @@ O servidor estará disponível em [http://localhost:3000](http://localhost:3000)
 | POST | `/api/deliveries` | — |
 | GET | `/api/deliveries` | — |
 | GET | `/api/deliveries/my-deliveries` | 🔒 |
+| PATCH | `/api/deliveries/:id/confirm` | 🔒 |
 
 ### Usuários
 | Método | Rota |
